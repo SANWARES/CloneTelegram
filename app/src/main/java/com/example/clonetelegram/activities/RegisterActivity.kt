@@ -2,11 +2,10 @@ package com.example.clonetelegram.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toolbar
 import com.example.clonetelegram.R
 import com.example.clonetelegram.databinding.ActivityRegisterBinding
 import com.example.clonetelegram.ui.fragments.EnterPhoneNumberFragment
-import kotlinx.android.synthetic.main.activity_register.*
+import com.example.clonetelegram.utilits.replaceFragment
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -24,8 +23,6 @@ class RegisterActivity : AppCompatActivity() {
         mToolbar = mBinding.registerToolbar
         setSupportActionBar(mToolbar)
         title = getString(R.string.register_title_your_phone)
-        supportFragmentManager.beginTransaction()
-            .add(R.id.registerDataContainer, EnterPhoneNumberFragment())
-            .commit()
+        replaceFragment(EnterPhoneNumberFragment())
     }
 }

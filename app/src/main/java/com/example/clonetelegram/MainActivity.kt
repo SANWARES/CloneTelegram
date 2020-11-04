@@ -7,6 +7,8 @@ import com.example.clonetelegram.activities.RegisterActivity
 import com.example.clonetelegram.databinding.ActivityMainBinding
 import com.example.clonetelegram.ui.objects.AppDrawer
 import com.example.clonetelegram.ui.fragments.ChatsFrament
+import com.example.clonetelegram.utilits.replaceActivity
+import com.example.clonetelegram.utilits.replaceFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,20 +29,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initFunc() {
-        if (false) {
+        if (true) {
             setSupportActionBar(mToolbar)
             mAppDrawer.create()
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.dataContainer, ChatsFrament()).commit()
+            replaceFragment(ChatsFrament())
+
         } else {
-            val intent = Intent(this, RegisterActivity::class.java)
-            startActivity(intent)
+            replaceActivity(RegisterActivity())
         }
 
 
-
     }
-
 
 
     private fun initFields() {

@@ -1,9 +1,11 @@
 package com.example.clonetelegram.ui.objects
 
+import android.provider.Settings
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.clonetelegram.R
 import com.example.clonetelegram.ui.fragments.SettingsFragment
+import com.example.clonetelegram.utilits.replaceFragment
 import com.mikepenz.materialdrawer.AccountHeader
 import com.mikepenz.materialdrawer.AccountHeaderBuilder
 import com.mikepenz.materialdrawer.Drawer
@@ -84,9 +86,7 @@ class AppDrawer (val mainActivity: AppCompatActivity, val toolbar: androidx.appc
                     drawerItem: IDrawerItem<*>
                 ): Boolean {
                     when (position) {
-                        7 -> mainActivity.supportFragmentManager.beginTransaction()
-                            .addToBackStack(null)
-                            .replace(R.id.dataContainer, SettingsFragment()).commit()
+                        7 -> mainActivity.replaceFragment(SettingsFragment())
                     }
                     return false
                 }
