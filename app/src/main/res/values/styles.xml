@@ -5,6 +5,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="popupTheme">@style/actionMenu</item>
+        <item name="colorControlActivated">@color/colorPrimary</item>
         <item name="android:colorBackground">@color/colorAccent</item>
 
         <!-- MaterialDrawer specific values -->
@@ -35,11 +37,18 @@
         <!--        Темная тема-->
     </style>
 
+    <style name="actionMenu" parent="Theme.AppCompat.Light">
+        <item name="background">@color/colorAccent</item>
+        <item name="actionMenuTextColor">@color/colorBlack</item>
+
+    </style>
+
+
     <style name="settingsButtons">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">@dimen/vertical_margin</item>
-        <item name="android:clickable" >true</item>
+        <item name="android:clickable">true</item>
         <item name="android:background">@drawable/ripple_effect</item>
         <item name="android:focusable">true</item>
     </style>
@@ -74,6 +83,17 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">?attr/actionBarSize</item>
         <item name="android:background">@color/colorPrimary</item>
+    </style>
+
+    <style name="editText">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/horizontal_margin</item>
+        <item name="android:inputType">phone</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:padding">@dimen/appPading</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textSize">@dimen/normalText</item>
     </style>
 
 </resources>

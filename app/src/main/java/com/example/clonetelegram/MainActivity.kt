@@ -1,10 +1,12 @@
 package com.example.clonetelegram
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.clonetelegram.activities.RegisterActivity
 import com.example.clonetelegram.databinding.ActivityMainBinding
 import com.example.clonetelegram.ui.objects.AppDrawer
-import com.example.clonetelegram.ui.packages.ChatsFrament
+import com.example.clonetelegram.ui.fragments.ChatsFrament
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,10 +27,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initFunc() {
-        setSupportActionBar(mToolbar)
-        mAppDrawer.create()
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.dataContainer, ChatsFrament()).commit()
+        if (false) {
+            setSupportActionBar(mToolbar)
+            mAppDrawer.create()
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.dataContainer, ChatsFrament()).commit()
+        } else {
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
+        }
 
 
 

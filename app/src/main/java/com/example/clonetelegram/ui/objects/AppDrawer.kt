@@ -3,7 +3,7 @@ package com.example.clonetelegram.ui.objects
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.example.clonetelegram.R
-import com.example.clonetelegram.ui.packages.SettingsFragment
+import com.example.clonetelegram.ui.fragments.SettingsFragment
 import com.mikepenz.materialdrawer.AccountHeader
 import com.mikepenz.materialdrawer.AccountHeaderBuilder
 import com.mikepenz.materialdrawer.Drawer

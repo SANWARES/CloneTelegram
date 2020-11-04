@@ -1,4 +1,4 @@
-package com.example.clonetelegram.ui.packages
+package com.example.clonetelegram.ui.fragments
 
 import com.example.clonetelegram.R
 
