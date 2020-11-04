@@ -5,6 +5,7 @@
     <color name="colorAccent">#FFFFFF</color>
     <color name="colorBlack">#000000</color>
     <color name="colorAccentDark">#FF4081</color>
+    <color name="colorGrey" >#C1C1C1</color>
 
     <!-- Material DEFAULT colors -->
     <color name="material_drawer_primary">#2196F3</color>
