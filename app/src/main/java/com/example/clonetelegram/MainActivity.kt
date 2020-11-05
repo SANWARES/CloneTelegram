@@ -7,8 +7,10 @@ import com.example.clonetelegram.activities.RegisterActivity
 import com.example.clonetelegram.databinding.ActivityMainBinding
 import com.example.clonetelegram.ui.objects.AppDrawer
 import com.example.clonetelegram.ui.fragments.ChatsFrament
+import com.example.clonetelegram.utilits.AUTH
 import com.example.clonetelegram.utilits.replaceActivity
 import com.example.clonetelegram.utilits.replaceFragment
+import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,7 +31,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initFunc() {
-        if (true) {
+        if (AUTH.currentUser != null) {
             setSupportActionBar(mToolbar)
             mAppDrawer.create()
             replaceFragment(ChatsFrament())
@@ -46,6 +48,7 @@ class MainActivity : AppCompatActivity() {
         mToolbar = mBinding.mainToolbar
         mAppDrawer = AppDrawer(this, mToolbar)
 
+        AUTH = FirebaseAuth.getInstance()
 
     }
 }

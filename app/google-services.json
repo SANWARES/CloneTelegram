@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "411150575574",
+    "firebase_url": "https://clonetelegram-190ed.firebaseio.com",
+    "project_id": "clonetelegram-190ed",
+    "storage_bucket": "clonetelegram-190ed.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:411150575574:android:6c53b300166ffb20d96677",
+        "android_client_info": {
+          "package_name": "com.example.clonetelegram"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "411150575574-hh01pad7ul97e1kfi3seeocuhmc84l83.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTkrNcIGwQHNQe3dXYSYB4UbNLIhu6YWI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "411150575574-hh01pad7ul97e1kfi3seeocuhmc84l83.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
