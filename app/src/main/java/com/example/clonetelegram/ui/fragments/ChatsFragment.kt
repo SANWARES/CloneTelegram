@@ -1,14 +1,16 @@
 package com.example.clonetelegram.ui.fragments
 
+import androidx.fragment.app.Fragment
 import com.example.clonetelegram.R
 
 
-class ChatsFrament : BaseFragment(R.layout.fragment_chats) {
+class ChatsFragment : Fragment(R.layout.fragment_chats) {
 
 
 
     override fun onResume() {
         super.onResume()
+
     }
 
 }

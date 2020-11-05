@@ -5,8 +5,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.clonetelegram.R
-import com.example.clonetelegram.activities.RegisterActivity
-import com.example.clonetelegram.ui.fragments.ChatsFrament
 
 fun Fragment.showToast(message: String) {
     Toast.makeText(this.context, message, Toast.LENGTH_SHORT).show()

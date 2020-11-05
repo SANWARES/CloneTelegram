@@ -5,6 +5,7 @@ import android.os.Bundle
 import com.example.clonetelegram.R
 import com.example.clonetelegram.databinding.ActivityRegisterBinding
 import com.example.clonetelegram.ui.fragments.EnterPhoneNumberFragment
+import com.example.clonetelegram.utilits.initFirebase
 import com.example.clonetelegram.utilits.replaceFragment
 
 class RegisterActivity : AppCompatActivity() {
@@ -16,6 +17,7 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         mBinding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
+        initFirebase()
     }
 
     override fun onStart() {
