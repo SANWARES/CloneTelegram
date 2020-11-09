@@ -1,13 +1,8 @@
 package com.example.clonetelegram.ui.fragments
 
-import android.os.Bundle
-import android.view.*
-import androidx.fragment.app.Fragment
-import com.example.clonetelegram.MainActivity
 import com.example.clonetelegram.R
 import com.example.clonetelegram.utilits.*
 import kotlinx.android.synthetic.main.fragment_change_user_name.*
-import kotlinx.android.synthetic.main.fragment_settings.*
 import java.util.*
 
 
@@ -40,7 +35,7 @@ class ChangeUserNameFragment : BaseChangeFragment(R.layout.fragment_change_user_
     }
 
     private fun changeUserName() {
-        REF_DATABASE_ROOT.child(NODE_USERNAMES).child(mNewUsername).setValue(UID)
+        REF_DATABASE_ROOT.child(NODE_USERNAMES).child(mNewUsername).setValue(CURRENT_UID)
             .addOnCompleteListener{
                 if (it.isSuccessful) {
                     updateCurrentUsername()
@@ -49,7 +44,7 @@ class ChangeUserNameFragment : BaseChangeFragment(R.layout.fragment_change_user_
     }
 
     private fun updateCurrentUsername() {
-        REF_DATABASE_ROOT.child(NODE_USERS).child(UID).child(CHILD_USERNAME).setValue(mNewUsername)
+        REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(CHILD_USERNAME).setValue(mNewUsername)
             .addOnCompleteListener {
                 if (it.isSuccessful) {
                     showToast(getString(R.string.toast_data_update))

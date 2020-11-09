@@ -1,15 +1,15 @@
 package com.example.clonetelegram.ui.fragments
 
+import android.app.Activity.RESULT_OK
+import android.content.Intent
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import com.example.clonetelegram.MainActivity
 import com.example.clonetelegram.R
 import com.example.clonetelegram.activities.RegisterActivity
-import com.example.clonetelegram.utilits.AUTH
-import com.example.clonetelegram.utilits.USER
-import com.example.clonetelegram.utilits.replaceActivity
-import com.example.clonetelegram.utilits.replaceFragment
+import com.example.clonetelegram.utilits.*
+import com.theartofdev.edmodo.cropper.CropImage
+import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.android.synthetic.main.fragment_settings.*
 
 
@@ -27,24 +27,37 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
         settings_phone_number.text = USER.phone
         settings_status.text = USER.status
         settings_username.text = USER.username
-        settings_btn_change_username.setOnClickListener{
+        settings_btn_change_username.setOnClickListener {
             replaceFragment(ChangeUserNameFragment())
         }
-        settings_btn_change_bio.setOnClickListener{
+        settings_btn_change_bio.setOnClickListener {
             replaceFragment(ChangeBioFragment())
         }
+        settings_change_photo.setOnClickListener {
+            changePhotoUser()
+        }
+    }
+
+    private fun changePhotoUser() {
+        CropImage.activity()
+            .setAspectRatio(1, 1)
+            .setRequestedSize(600, 600)
+            .setCropShape(CropImageView.CropShape.OVAL)
+            .start(APP_ACTIVITY)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.settings_menu_exit ->{
+            R.id.settings_menu_exit -> {
                 AUTH.signOut()
-                (activity as MainActivity).replaceActivity(RegisterActivity())
+                APP_ACTIVITY.replaceActivity(RegisterActivity())
             }
             R.id.settings_menu_change_name -> replaceFragment(ChangeNameFragment())
         }
         return true
     }
+
+
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         activity?.menuInflater?.inflate(R.menu.settings_action_menu, menu)
