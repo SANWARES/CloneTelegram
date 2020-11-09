@@ -32,7 +32,6 @@ class EnterCodeFragment(private val phoneNumber: String, val id: String) :
             if (task.isSuccessful) {
                 val uid = AUTH.currentUser?.uid.toString()
                 val dateMap = mutableMapOf<String, Any>()
-                dateMap[CHILD_FULLNAME] = "Yuriy Petrov"
                 dateMap[CHILD_ID] = uid
                 dateMap[CHILD_PHONE] = phoneNumber
                 dateMap[CHILD_USERNAME] = uid
