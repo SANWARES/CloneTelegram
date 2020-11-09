@@ -7,8 +7,10 @@ import com.example.clonetelegram.MainActivity
 import com.example.clonetelegram.R
 import com.example.clonetelegram.activities.RegisterActivity
 import com.example.clonetelegram.utilits.AUTH
+import com.example.clonetelegram.utilits.USER
 import com.example.clonetelegram.utilits.replaceActivity
 import com.example.clonetelegram.utilits.replaceFragment
+import kotlinx.android.synthetic.main.fragment_settings.*
 
 
 class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
@@ -16,6 +18,18 @@ class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
     override fun onResume() {
         super.onResume()
         setHasOptionsMenu(true)
+        initFields()
+    }
+
+    private fun initFields() {
+        settings_bio.text = USER.bio
+        settings_full_name.text = USER.fullname
+        settings_phone_number.text = USER.phone
+        settings_status.text = USER.status
+        settings_username.text = USER.username
+        settings_btn_change_username.setOnClickListener{
+            replaceFragment(ChangeUserNameFragment())
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
