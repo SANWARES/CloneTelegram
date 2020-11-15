@@ -1,11 +1,16 @@
 package com.example.clonetelegram.ui.objects
 
+import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.provider.Settings
 import android.view.View
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.clonetelegram.R
 import com.example.clonetelegram.ui.fragments.SettingsFragment
+import com.example.clonetelegram.utilits.USER
+import com.example.clonetelegram.utilits.downloadAndSetImage
 import com.example.clonetelegram.utilits.replaceFragment
 import com.mikepenz.materialdrawer.AccountHeader
 import com.mikepenz.materialdrawer.AccountHeaderBuilder
@@ -15,13 +20,17 @@ import com.mikepenz.materialdrawer.model.DividerDrawerItem
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
+import com.mikepenz.materialdrawer.util.AbstractDrawerImageLoader
+import com.mikepenz.materialdrawer.util.DrawerImageLoader
 
 class AppDrawer (val mainActivity: AppCompatActivity, val toolbar: androidx.appcompat.widget.Toolbar){
     private lateinit var mDrawer: Drawer
     private lateinit var mHeader: AccountHeader
     private lateinit var mDrawerLayout:DrawerLayout
+    private lateinit var mCurrentProfile:ProfileDrawerItem
 
     fun create(){
+        initLoader()
         createHeader()
         createDrawer()
         mDrawerLayout = mDrawer.drawerLayout
@@ -117,12 +126,34 @@ class AppDrawer (val mainActivity: AppCompatActivity, val toolbar: androidx.appc
     }
 
     private fun createHeader() {
+        mCurrentProfile = ProfileDrawerItem()
+            .withName(USER.fullname)
+            .withEmail(USER.phone)
+            .withIcon(USER.photoUrl)
+            .withIdentifier(200)
         mHeader = AccountHeaderBuilder()
             .withActivity(mainActivity)
             .withHeaderBackground(R.drawable.header)
             .addProfiles(
-                ProfileDrawerItem().withName("Yura Petrov")
-                    .withEmail("+79123123")
+                mCurrentProfile
             ).build()
     }
+
+    fun updateHeader(){
+        mCurrentProfile
+            .withName(USER.fullname)
+            .withEmail(USER.phone)
+            .withIcon(USER.photoUrl)
+
+        mHeader.updateProfile(mCurrentProfile)
+    }
+
+    private fun initLoader() {
+        DrawerImageLoader.init(object: AbstractDrawerImageLoader() {
+            override fun set(imageView: ImageView, uri: Uri, placeholder: Drawable) {
+                imageView.downloadAndSetImage(uri.toString())
+            }
+        })
+    }
+
 }
