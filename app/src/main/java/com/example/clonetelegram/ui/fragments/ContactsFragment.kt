@@ -1,7 +1,5 @@
 package com.example.clonetelegram.ui.fragments
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,8 +10,6 @@ import com.example.clonetelegram.models.CommonModel
 import com.example.clonetelegram.utilits.*
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
-import com.google.android.gms.common.internal.service.Common
-import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseReference
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.contact_item.view.*
@@ -64,6 +60,7 @@ class ContactsFragment : BaseFragment(R.layout.fragment_contacts) {
                     holder.name.text = contact.fullname
                     holder.status.text = contact.state
                     holder.photo.downloadAndSetImage(contact.photoUrl)
+                    holder.itemView.setOnClickListener { replaceFragment(SingleChatFragment(contact)) }
                 }
 
 
@@ -88,7 +85,7 @@ class ContactsFragment : BaseFragment(R.layout.fragment_contacts) {
         super.onPause()
         mAdapter.stopListening()
         println()
-        mapListeners.forEach{
+        mapListeners.forEach {
             it.key.removeEventListener(it.value)
         }
         println()
