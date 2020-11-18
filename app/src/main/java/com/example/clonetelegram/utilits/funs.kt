@@ -6,13 +6,9 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import com.example.clonetelegram.R
 import com.squareup.picasso.Picasso
-import de.hdodenhof.circleimageview.CircleImageView
-import kotlinx.android.synthetic.main.fragment_settings.*
-import kotlinx.android.synthetic.main.fragment_settings.view.*
 
 fun showToast(message: String) {
     Toast.makeText(APP_ACTIVITY, message, Toast.LENGTH_SHORT).show()
@@ -28,14 +24,14 @@ fun AppCompatActivity.replaceActivity(activity: AppCompatActivity) {
 fun AppCompatActivity.replaceFragment(fragment: Fragment) {
     supportFragmentManager.beginTransaction()
         .addToBackStack(null)
-        .replace(R.id.dataContainer, fragment)
+        .replace(R.id.data_container, fragment)
         .commit()
 }
 
 fun Fragment.replaceFragment(fragment: Fragment) {
     this.fragmentManager?.beginTransaction()
         ?.addToBackStack(null)
-        ?.replace(R.id.dataContainer, fragment)
+        ?.replace(R.id.data_container, fragment)
         ?.commit()
 }
 
