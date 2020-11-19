@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment
 import com.example.clonetelegram.R
 import com.example.clonetelegram.models.CommonModel
 import com.squareup.picasso.Picasso
+import java.text.SimpleDateFormat
+import java.util.*
 
 fun showToast(message: String) {
     Toast.makeText(APP_ACTIVITY, message, Toast.LENGTH_SHORT).show()
@@ -23,19 +25,21 @@ fun AppCompatActivity.replaceActivity(activity: AppCompatActivity) {
 }
 
 
-fun AppCompatActivity.replaceFragment(fragment: Fragment) {
-    supportFragmentManager.beginTransaction()
-        .addToBackStack(null)
-        .replace(R.id.data_container, fragment)
-        .commit()
+fun replaceFragment(fragment: Fragment, addStack: Boolean = true) {
+    if (addStack) {
+        APP_ACTIVITY.supportFragmentManager.beginTransaction()
+            .addToBackStack(null)
+            .replace(R.id.data_container, fragment)
+            .commit()
+    } else {
+        APP_ACTIVITY.supportFragmentManager.beginTransaction()
+            .replace(R.id.data_container, fragment)
+            .commit()
+    }
+
 }
 
-fun Fragment.replaceFragment(fragment: Fragment) {
-    this.fragmentManager?.beginTransaction()
-        ?.addToBackStack(null)
-        ?.replace(R.id.data_container, fragment)
-        ?.commit()
-}
+
 
 
 fun hideKeyboard() {
@@ -78,4 +82,11 @@ fun initContacts() {
         cursor?.close()
         updatePhonesToDatabase(arrayContacts)
     }
+}
+
+fun String.asTime(): String {
+    val time = Date(this.toLong())
+    val timeFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
+    return timeFormat.format(time)
+
 }

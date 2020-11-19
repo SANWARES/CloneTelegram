@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.clonetelegram.R
 import com.example.clonetelegram.models.CommonModel
+import com.example.clonetelegram.ui.fragments.single_chat.SingleChatFragment
 import com.example.clonetelegram.utilits.*
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
@@ -61,7 +62,7 @@ class ContactsFragment : BaseFragment(R.layout.fragment_contacts) {
                         holder.name.text = model.fullname
                     } else
                         holder.name.text = contact.fullname
-                    
+
                     holder.status.text = contact.state
                     holder.photo.downloadAndSetImage(contact.photoUrl)
                     holder.itemView.setOnClickListener { replaceFragment(SingleChatFragment(model)) }
