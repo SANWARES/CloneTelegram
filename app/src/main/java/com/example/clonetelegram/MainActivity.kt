@@ -4,10 +4,13 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.example.clonetelegram.activities.RegisterActivity
+import com.example.clonetelegram.database.AUTH
+import com.example.clonetelegram.database.initFirebase
+import com.example.clonetelegram.database.initUser
 import com.example.clonetelegram.databinding.ActivityMainBinding
 import com.example.clonetelegram.ui.objects.AppDrawer
-import com.example.clonetelegram.ui.fragments.ChatsFragment
+import com.example.clonetelegram.ui.fragments.MainFragment
+import com.example.clonetelegram.ui.fragments.register.EnterPhoneNumberFragment
 import com.example.clonetelegram.utilits.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -37,7 +40,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
     override fun onStop() {
         super.onStop()
         AppStates.updateState(AppStates.OFFLINE)
@@ -50,16 +52,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initFunc() {
+        setSupportActionBar(mToolbar)
         if (AUTH.currentUser != null) {
-            setSupportActionBar(mToolbar)
             mAppDrawer.create()
-            replaceFragment(ChatsFragment())
+            replaceFragment(MainFragment())
 
         } else {
-            replaceActivity(RegisterActivity())
+            replaceFragment(EnterPhoneNumberFragment(), false)
         }
-
-
     }
 
 
@@ -75,7 +75,11 @@ class MainActivity : AppCompatActivity() {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (ContextCompat.checkSelfPermission(APP_ACTIVITY, READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(
+                APP_ACTIVITY,
+                READ_CONTACTS
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
             initContacts()
         }
     }

@@ -1,13 +1,9 @@
-package com.example.clonetelegram.ui.fragments
+package com.example.clonetelegram.ui.fragments.register
 
 import androidx.fragment.app.Fragment
-import com.example.clonetelegram.MainActivity
 import com.example.clonetelegram.R
-import com.example.clonetelegram.activities.RegisterActivity
-import com.example.clonetelegram.utilits.AUTH
-import com.example.clonetelegram.utilits.replaceActivity
-import com.example.clonetelegram.utilits.replaceFragment
-import com.example.clonetelegram.utilits.showToast
+import com.example.clonetelegram.database.AUTH
+import com.example.clonetelegram.utilits.*
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
@@ -30,7 +26,7 @@ class EnterPhoneNumberFragment : Fragment(R.layout.fragment_enter_phone_number) 
                 AUTH.signInWithCredential(credential).addOnCompleteListener { task ->
                     if (task.isSuccessful) {
                         showToast("Добро пожаловать")
-                        (activity as RegisterActivity).replaceActivity(MainActivity())
+                        restartActivity()
                     } else showToast(task.exception?.message.toString())
 
                 }
@@ -64,7 +60,7 @@ class EnterPhoneNumberFragment : Fragment(R.layout.fragment_enter_phone_number) 
         PhoneAuthProvider.verifyPhoneNumber(
             PhoneAuthOptions
                 .newBuilder(FirebaseAuth.getInstance())
-                .setActivity(activity as RegisterActivity)
+                .setActivity(APP_ACTIVITY)
                 .setPhoneNumber(mPhoneNumber)
                 .setTimeout(60L, TimeUnit.SECONDS)
                 .setCallbacks(mCallback)
