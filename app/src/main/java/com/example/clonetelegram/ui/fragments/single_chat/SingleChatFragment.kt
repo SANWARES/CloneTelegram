@@ -3,6 +3,7 @@ package com.example.clonetelegram.ui.fragments.single_chat
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.view.MotionEvent
 import android.view.View
 import android.widget.AbsListView
@@ -17,13 +18,9 @@ import com.example.clonetelegram.models.UserModel
 import com.example.clonetelegram.ui.fragments.BaseFragment
 import com.example.clonetelegram.utilits.*
 import com.google.firebase.database.ChildEventListener
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.theartofdev.edmodo.cropper.CropImage
-import com.theartofdev.edmodo.cropper.CropImageView
 import kotlinx.android.synthetic.main.activity_main.view.*
-import kotlinx.android.synthetic.main.fragment_settings.*
 import kotlinx.android.synthetic.main.fragment_single_chat.*
 import kotlinx.android.synthetic.main.toolbar_info.view.*
 import kotlinx.coroutines.CoroutineScope
@@ -48,6 +45,7 @@ class SingleChatFragment(private val contact: CommonModel) :
     private var mListListener = mutableListOf<AppChildEventListener>()
     private lateinit var mSwipeRefreshLayout: SwipeRefreshLayout
     private lateinit var mLayoutManager: LinearLayoutManager
+    private lateinit var mAppVoiceRecorder: AppVoiceRecorder
 
     override fun onResume() {
         super.onResume()
@@ -60,6 +58,7 @@ class SingleChatFragment(private val contact: CommonModel) :
 
     @SuppressLint("ClickableViewAccessibility")
     private fun initFields() {
+        mAppVoiceRecorder = AppVoiceRecorder()
         mSwipeRefreshLayout = chat_swipe_refresh
         mLayoutManager = LinearLayoutManager(this.context)
         chat_input_message.addTextChangedListener(AppTextWatcher {
@@ -90,10 +89,17 @@ class SingleChatFragment(private val contact: CommonModel) :
                                 R.color.primary
                             )
                         )
+                        val messageKey = getMessageKey(contact.id)
+                        mAppVoiceRecorder.startRecord(messageKey)
+
                     } else if (event.action == MotionEvent.ACTION_UP) {
                         // todo stop record
                         chat_input_message.setText("")
                         chat_btn_voice.colorFilter = null
+                        mAppVoiceRecorder.stopRecord() { file, messageKey ->
+
+                            uploadFileToStorage(Uri.fromFile(file), messageKey)
+                        }
                     }
                 }
                 true
@@ -102,6 +108,7 @@ class SingleChatFragment(private val contact: CommonModel) :
 
 
     }
+
 
     private fun attachFile() {
         CropImage.activity()
@@ -217,8 +224,7 @@ class SingleChatFragment(private val contact: CommonModel) :
             && resultCode == Activity.RESULT_OK && data != null
         ) {
             val uri = CropImage.getActivityResult(data).uri
-            val messageKey = REF_DATABASE_ROOT.child(NODE_MESSAGES).child(CURRENT_UID)
-                .child(contact.id).push().key.toString()
+            val messageKey = getMessageKey(contact.id)
 
             val path = REF_STORAGE_ROOT
                 .child(FOLDER_PROFILE_IMAGE)
@@ -232,6 +238,11 @@ class SingleChatFragment(private val contact: CommonModel) :
         }
     }
 
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        mAppVoiceRecorder.releaseRecord()
+    }
 
     override fun onPause() {
         super.onPause()
