@@ -8,6 +8,7 @@ import com.example.clonetelegram.models.CommonModel
 import com.example.clonetelegram.ui.fragments.message_recycler_view.view_holders.AppHolderFactory
 import com.example.clonetelegram.ui.fragments.message_recycler_view.view_holders.HolderImageMessage
 import com.example.clonetelegram.ui.fragments.message_recycler_view.view_holders.HolderTextMessage
+import com.example.clonetelegram.ui.fragments.message_recycler_view.view_holders.HolderVoiceMessage
 import com.example.clonetelegram.ui.fragments.message_recycler_view.views.MessageView
 import com.example.clonetelegram.utilits.*
 
@@ -26,49 +27,16 @@ class SingleChatAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-            when(holder) {
-                is HolderImageMessage -> drawMessageImage(holder, position)
-                is HolderTextMessage -> drawMessageText(holder, position)
-                else -> {
+        when (holder) {
+            is HolderImageMessage -> holder.drawMessageImage(holder, mListMessagesCache[position])
+            is HolderTextMessage -> holder.drawMessageText(holder, mListMessagesCache[position])
+            is HolderVoiceMessage -> holder.drawMessageVoice(holder, mListMessagesCache[position])
+            else -> {
 
-                }
+            }
         }
     }
 
-    private fun drawMessageImage(holder: HolderImageMessage, position: Int) {
-
-        if (mListMessagesCache[position].from == CURRENT_UID) {
-
-            holder.blocReceivedImageMessage.visibility = View.GONE
-            holder.blocUserImageMessage.visibility = View.VISIBLE
-            holder.chatUserImage.downloadAndSetImage(mListMessagesCache[position].fileUrl)
-            holder.chatUserImageMessageTime.text = mListMessagesCache[position].timeStamp.asTime()
-
-        } else {
-            holder.blocReceivedImageMessage.visibility = View.VISIBLE
-            holder.blocUserImageMessage.visibility = View.GONE
-            holder.chatReceivedImage.downloadAndSetImage(mListMessagesCache[position].fileUrl)
-            holder.chatReceivedImageMessageTime.text = mListMessagesCache[position].timeStamp.asTime()
-        }
-    }
-
-    private fun drawMessageText(holder: HolderTextMessage, position: Int) {
-
-
-        if (mListMessagesCache[position].from == CURRENT_UID) {
-            holder.blockUserMessage.visibility = View.VISIBLE
-            holder.blockReceivedMessage.visibility = View.GONE
-            holder.chatUserMessage.text = mListMessagesCache[position].text
-            holder.chatUserMessageTime.text =
-                mListMessagesCache[position].timeStamp.asTime()
-        } else {
-            holder.blockUserMessage.visibility = View.GONE
-            holder.blockReceivedMessage.visibility = View.VISIBLE
-            holder.chatReceivedMessage.text = mListMessagesCache[position].text
-            holder.chatReceivedTime.text =
-                mListMessagesCache[position].timeStamp.asTime()
-        }
-    }
 
     override fun getItemCount(): Int = mListMessagesCache.size
 
